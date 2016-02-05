@@ -9,5 +9,8 @@ int32 CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmd
 	int32 test = COM_CheckParm("-setalpha");
 	int32 value = Q_atoi(com_largv[test+1]);
 
+	uint8 *str = "Hellothere";
+	uint32 len = Q_strlen(str);
+
 	return 0;
 }

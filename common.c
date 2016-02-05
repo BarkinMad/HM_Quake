@@ -40,3 +40,4 @@ void COM_ParseCmdLine(uint8 *lpCmdLine)
 		}
 	}
 }
+

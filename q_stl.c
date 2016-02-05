@@ -52,3 +52,35 @@ int32 Q_atoi(uint8 *str)
 		val = val * 10 + c - '0';
 	}
 }
+
+void Q_strcpy(uint8 *dest, uint8 *src)
+{
+	while (*dest++ = *src++);
+	*dest = 0;
+}
+
+void Q_strncpy(uint8 * dest, uint8 *src, int32 count)
+{
+	if (count < 0)
+		return;
+	while (*src && count)
+	{
+		*dest++ = *src++;
+		--count; 
+	}
+
+	while (count)
+	{
+		*dest++ = 0;
+		--count;
+	}
+}
+
+int Q_strlen(uint8 *str)
+{
+	int32 count = 0; 
+	while (str[count])
+		++count;
+
+	return count; 
+}
