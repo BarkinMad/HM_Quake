@@ -7,7 +7,7 @@ static double GTimePassed = 0;
 static double SecondsPerTick = 0;
 static __int64 GTimeCount = 0; 
 
-float SysInitFloatTime(void)
+float Sys_InitFloatTime(void)
 {
 	LARGE_INTEGER Frequency;
 	QueryPerformanceFrequency(&Frequency);
@@ -106,6 +106,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		}
 
 		float newtime = Sys_FloatTime();
+
+		char buffer[64];
+		sprintf_s(buffer, 64, "%3.7f \n", newtime);
+		OutputDebugString(buffer);
+		Sleep(100);
 	}
 	return 0; 
 }
