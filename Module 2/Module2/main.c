@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <stdio.h>
+#include "host.h"
 
 static BOOL IsRunning = TRUE;
 
@@ -93,7 +94,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	PatBlt(DeviceContext, 0, 0, 800, 600, BLACKNESS);
 	ReleaseDC(mainWindow, DeviceContext);
 
-	float timecount = Sys_InitFloatTime();
+	Host_Init();
+
+	float oldTime = Sys_InitFloatTime();
+	float TargetTime = 1.0f / 60.0f; 
+	float TimeAccu = 0; 
 	
 	MSG msg;
 
@@ -105,12 +110,17 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			DispatchMessage(&msg);
 		}
 
-		float newtime = Sys_FloatTime();
+		float newTime = Sys_FloatTime();
+		TimeAccu += newTime - oldTime; 
+		oldTime = newTime; 
 
-		char buffer[64];
-		sprintf_s(buffer, 64, "%3.7f \n", newtime);
-		OutputDebugString(buffer);
-		Sleep(100);
+		if (TimeAccu > TargetTime)
+		{
+			Host_Frame(TargetTime);
+			TimeAccu -= TargetTime;
+		}
 	}
+
+	Host_Shutdown();
 	return 0; 
 }
